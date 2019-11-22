@@ -4,6 +4,7 @@ const fileUpload = require('express-fileupload');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const _ = require('lodash')
+const merge = require('easy-pdf-merge');
 
 const app = express();
 const PORT = process.env.PORT || 3000 ;
@@ -78,12 +79,24 @@ app.post('/upload-files', async (req, res) => {
                     size: photo.size
                 });
             });
-    
+
+            // merge(source_files,dest_file_path,function(err){
+            //     if(err) {
+            //       return console.log(err)
+            //     }
+            //     console.log('Success')
+            //   });
+
+            const d = data.map(d => {
+                return {fileUrl:  `${__dirname}/${d.name}`} ;
+            })
+            
             //return response
             res.send({
                 status: true,
                 message: 'Files are uploaded',
-                data: data
+                data: data,
+                filesUrls: d
             });
         }
     } catch (err) {
@@ -91,14 +104,10 @@ app.post('/upload-files', async (req, res) => {
     }
 });
 
+
+  
+
 app.listen(PORT, () => {
     console.log(`escutando na porta ${PORT}`);
 });
 
-
-// docxConverter('./resources/Example.docx','./resources/Example.pdf',function(err,result){
-//   if(err){
-//     console.log(err);
-//   }
-//   console.log('result'+result);
-// });
