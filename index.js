@@ -5,6 +5,7 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 const _ = require('lodash')
 const merge = require('easy-pdf-merge');
+const path = require('path');
 
 const app = express();
 const PORT = process.env.PORT || 3000 ;
@@ -88,7 +89,7 @@ app.post('/upload-files', async (req, res) => {
             //   });
 
             const d = data.map(d => {
-                return {fileUrl:  `${process.cwd()}/${d.name}`} ;
+                return { fileUrl: path.resolve(__dirname, d.name) } ;
             })
             
             //return response
