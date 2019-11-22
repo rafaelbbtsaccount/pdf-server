@@ -3,7 +3,7 @@ const express = require('express');
 const fileUpload = require('express-fileupload');
 const cors = require('cors');
 const bodyParser = require('body-parser');
-const morgan = require('morgan');
+const _ = require('lodash')
 
 const app = express();
 const PORT = process.env.PORT || 3000 ;
@@ -47,6 +47,43 @@ app.post('/upload-avatar', async (req, res) => {
                     mimetype: avatar.mimetype,
                     size: avatar.size
                 }
+            });
+        }
+    } catch (err) {
+        res.status(500).send(err);
+    }
+});
+
+app.post('/upload-files', async (req, res) => {
+    try {
+        if(!req.files) {
+            res.send({
+                status: false,
+                message: 'No file uploaded'
+            });
+        } else {
+            let data = []; 
+    
+            //loop all files
+            _.forEach(_.keysIn(req.files.photos), (key) => {
+                let photo = req.files.photos[key];
+                
+                //move photo to uploads directory
+                photo.mv('./uploads/' + photo.name);
+
+                //push file details
+                data.push({
+                    name: photo.name,
+                    mimetype: photo.mimetype,
+                    size: photo.size
+                });
+            });
+    
+            //return response
+            res.send({
+                status: true,
+                message: 'Files are uploaded',
+                data: data
             });
         }
     } catch (err) {
