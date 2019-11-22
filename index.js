@@ -88,7 +88,7 @@ app.post('/upload-files', async (req, res) => {
             //   });
 
             const d = data.map(d => {
-                return {fileUrl:  `${__dirname}/${d.name}`} ;
+                return {fileUrl:  `${process.cwd()}/${d.name}`} ;
             })
             
             //return response
