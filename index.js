@@ -23,7 +23,15 @@ app.post('/upload-avatar', async (req, res) => {
 });
 
 app.post('/upload-files', async (req, res) => {
+
     console.log(req.body.urls);
+
+    merge(req.body.urls,'./resources/merged.pdf',function(err){
+      if(err) {
+        return console.log(err)
+      }
+      console.log('deu merge de boa');
+    });
 
   res.send(req);
 });
