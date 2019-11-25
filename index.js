@@ -27,12 +27,14 @@ app.get('/', (req, res) => {
 });
 
 app.post('/upload-avatar', async (req, res) => {
-    
-  res.send(req.body.files);
+
+  res.send('URLs recebidas');
 });
 
 app.post('/upload-files', async (req, res) => {
-    res.send(req.body.files);
+
+  console.log(req.body.urls);
+  res.send('URLs recebidas');
 });
 
 
