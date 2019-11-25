@@ -8,10 +8,6 @@ const PORT = process.env.PORT || 3000 ;
 
 app.use(express.static('resources'));
 
-// enable files upload
-app.use(fileUpload({
-    createParentPath: true
-}));
 
 //add other middleware
 app.use(cors());
@@ -23,13 +19,13 @@ app.get('/', (req, res) => {
 
 app.post('/upload-avatar', async (req, res) => {
 
-  res.send(req.body);
+  res.send(req);
 });
 
 app.post('/upload-files', async (req, res) => {
     console.log(req.body.urls);
 
-  res.send(req.body.urls);
+  res.send(req);
 });
 
 app.listen(PORT, () => {
