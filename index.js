@@ -28,13 +28,12 @@ app.get('/', (req, res) => {
 
 app.post('/upload-avatar', async (req, res) => {
 
-  res.send('URLs recebidas');
+  res.send(req.body);
 });
 
 app.post('/upload-files', async (req, res) => {
 
-  console.log(req.body.urls);
-  res.send('URLs recebidas');
+  res.send(req.body.urls);
 });
 
 
